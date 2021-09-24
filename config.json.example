@@ -1,0 +1,7 @@
+{
+  "url": "https://api.coingecko.com/api/v3/coins/ergo?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true",
+  "holdings": 10,
+  "additionalCurrencies": [
+    "aud"
+  ]
+}
