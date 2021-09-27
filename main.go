@@ -27,6 +27,7 @@ type CoinResponse struct {
 
 type Widget struct {
 	cfg *Config
+	Client *http.Client
 }
 
 type CurrencyCurrentValue map[string]string
@@ -39,8 +40,10 @@ func main() {
 		log.Fatalf("%s", err)
 	}
 
+	client := &http.Client{}
 	w := Widget{
 		cfg: cfg,
+		Client: client,
 	}
 
 	coin, err := w.getCoin()
@@ -82,14 +85,13 @@ func (w Widget) prepareOutput(c *types.CoinsID) *CoinResponse {
 
 // getCoin will retrieve current data for requested coin.
 func (w Widget) getCoin() (*types.CoinsID, error) {
-	client := &http.Client{}
 	req, err := http.NewRequest("GET", w.cfg.URL, nil)
 	if err != nil {
 		return nil, err
 	}
 
 	req.Header.Add("Accept", "application/json")
-	resp, err := client.Do(req)
+	resp, err := w.Client.Do(req)
 	if err != nil {
 		return nil, err
 	}
