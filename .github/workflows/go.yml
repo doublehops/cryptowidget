@@ -23,6 +23,3 @@ jobs:
 
     - name: Test
       run: go test -v ./...
-
-    - name: Lint
-      run: golangci-lint run --modules-download-mode vendor
