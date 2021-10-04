@@ -20,20 +20,20 @@ type Config struct {
 }
 
 type CoinResponse struct {
-	CurrentPrice  string                 `json:"currentPrice"`
-	Rank          uint16                 `json:"rank"`
+	CurrentPrice  string               `json:"currentPrice"`
+	Rank          uint16               `json:"rank"`
 	CurrentValues CurrencyCurrentValue `json:"currentValues"` // [aud] = 123.00
 }
 
 type Widget struct {
-	cfg *Config
+	cfg    *Config
 	Client *http.Client
 }
 
 type CurrencyCurrentValue map[string]string
 
 func main() {
-	var configFile = flag.String("config", "config.json", "path to config file.")
+	configFile := flag.String("config", "config.json", "path to config file.")
 	flag.Parse()
 	cfg, err := getConf(*configFile)
 	if err != nil {
@@ -42,7 +42,7 @@ func main() {
 
 	client := &http.Client{}
 	w := Widget{
-		cfg: cfg,
+		cfg:    cfg,
 		Client: client,
 	}
 
@@ -57,7 +57,7 @@ func main() {
 		log.Fatalf("could not marshal response struct to JSON. %s", err)
 	}
 
-	_, err = os.Stdout.WriteString(string(j)+"\n")
+	_, err = os.Stdout.WriteString(string(j) + "\n")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to print to stderr")
 	}
