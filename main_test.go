@@ -54,8 +54,8 @@ func TestPrepareOutput(t *testing.T) {
 		t.Errorf("USD Price not as expected. Got: %s; expected: %s", output.CurrentPrice, currentUSDPriceString)
 	}
 
-	if output.CurrentValues["aud"] != currentHoldingsValue {
-		t.Errorf("AUD Price not as expected. Got: %s; expected: %s", output.CurrentValues["aud"], currentHoldingsValue)
+	if output.Holdings["aud"] != currentHoldingsValue {
+		t.Errorf("AUD Price not as expected. Got: %s; expected: %s", output.Holdings["aud"], currentHoldingsValue)
 	}
 }
 

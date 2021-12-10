@@ -20,9 +20,9 @@ type Config struct {
 }
 
 type CoinResponse struct {
-	CurrentPrice  string               `json:"currentPrice"`
-	Rank          uint16               `json:"rank"`
-	CurrentValues CurrencyCurrentValue `json:"currentValues"` // [aud] = 123.00
+	CurrentPrice string               `json:"currentPriceUSD"`
+	Rank         uint16               `json:"rank"`
+	Holdings     CurrencyCurrentValue `json:"holdings"` // [aud] = 123.00
 }
 
 type Widget struct {
@@ -75,9 +75,9 @@ func (w Widget) prepareOutput(c *types.CoinsID) *CoinResponse {
 
 	currentUSDPrice := strings.ConvertToCurrency(c.MarketData.CurrentPrice["usd"])
 	output := CoinResponse{
-		CurrentPrice:  currentUSDPrice,
-		Rank:          c.MarketCapRank,
-		CurrentValues: currencyValues,
+		CurrentPrice: currentUSDPrice,
+		Rank:         c.MarketCapRank,
+		Holdings:     currencyValues,
 	}
 
 	return &output
