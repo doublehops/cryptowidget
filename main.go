@@ -57,7 +57,7 @@ func main() {
 		log.Fatalf("could not marshal response struct to JSON. %s", err)
 	}
 
-	_, err = os.Stdout.WriteString(string(j) + "\n")
+	_, err = os.Stdout.WriteString(string(j))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to print to stderr")
 	}
@@ -96,6 +96,11 @@ func (w Widget) getCoin() (*types.CoinsID, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	// todo - use Temporal above instead.
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code in response: %d", resp.StatusCode)
+	}
 
 	var coin types.CoinsID
 	err = json.NewDecoder(resp.Body).Decode(&coin)
